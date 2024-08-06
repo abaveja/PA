@@ -1,0 +1,24 @@
+# ------------- LINUX(DEBIAN) -------------
+filebeat.inputs:
+  - type: filestream
+    enabled: true
+    paths:
+      - /var/log/syslog
+      - /var/log/auth.log
+    processors:
+      - add_fields:
+          fields:
+            vendor: linux
+            product: linux
+
+
+  - type: filestream
+    enabled: true
+    paths:
+      - /var/log/apache2/access*
+      - /var/log/apache2/error*
+    processors:
+      - add_fields:
+          fields:
+            vendor: apache
+            product: httpd

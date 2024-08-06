@@ -1,0 +1,8 @@
+datamodel dataset = apache_httpd_raw |
+fields xdm.source.user.username, xdm.network.http.url, xdm.network.http.referrer, xdm.target.sent_bytes, xdm.source.ipv4, xdm.source.ipv6, xdm.network.http.method, xdm.network.http.response_code, xdm.source.user_agent, xdm.observer.name, xdm.event.type, apache_httpd_raw._collector_internal_ip_address |
+join type = inner conflict_strategy = both (dataset = check_point_smartdefense_raw |
+alter cp_time = _time | fields * | fields - _time ) as check check.src = xdm.source.ipv4 |
+sort desc _time |
+alter diff = timestamp_diff(_time, cp_time , "second") |
+filter 0 <= diff and diff <= 500 |
+fields _time, cp_time , *, diff

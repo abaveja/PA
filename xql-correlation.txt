@@ -1,0 +1,4 @@
+config case_sensitive = false |
+dataset = check_point_smartdefense_raw |
+filter act = "block" and msg contains "malware-cnc" |
+fields shost, spt , dst , dpt, msg , act, cefSeverity , suser

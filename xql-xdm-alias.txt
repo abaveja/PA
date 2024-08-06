@@ -1,0 +1,9 @@
+// It is CRITICAL that the xdm.source.host.hostname = variable be updated to YOUR student traffic-gen hostname!
+// This will be traffic-gen-(student number)
+config case_sensitive = false | datamodel dataset = * | filter XDM_ALIAS.ipv4 = "192.168.1.201" and xdm.source.host.hostname = "traffic-gen-7348"
+| sort desc _time  | view column order = populated
+// normalize
+| alter final_host = if(xdm.source.host.hostname = null, xdm.source.ipv4, xdm.source.host.hostname)
+// grouping
+| comp count() as num_actions by final_host, xdm.observer.vendor,xdm.observer.product, xdm.event.operation,xdm.event.type,xdm.target.resource.name,xdm.event.outcome,xdm.event.description ,xdm.event.outcome_reason
+| sort asc final_host, desc xdm.observer.vendor

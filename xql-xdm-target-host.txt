@@ -1,0 +1,1 @@
+datamodel | fields xdm.source.user.username, xdm.source.ipv4, xdm.target.ipv4, xdm.target.port | filter xdm.target.ipv4 = "192.168.1.201"

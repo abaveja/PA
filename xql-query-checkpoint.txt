@@ -1,0 +1,8 @@
+// Copy this into query builder
+datamodeldataset = check_point_smartdefense_raw | filter xdm.source.ipv4 != null and xdm.target.ipv4 != null
+| comp count_distinct(xdm.target.ipv4 ) as counter by xdm.source.ipv4, xdm.target.port
+| sort desc counter
+
+
+//Add the following line to the query after query one complete
+| filter counter >= 1
